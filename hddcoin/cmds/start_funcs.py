@@ -28,10 +28,14 @@ async def create_start_daemon_connection(root_path: Path) -> Optional[DaemonProx
         process = launch_start_daemon(root_path)
         # give the daemon a chance to start up
         if process.stdout:
+            print("stdout is not empty")
             process.stdout.readline()
         await asyncio.sleep(1)
+        print("sleep done")
         # it prints "daemon: listening"
         connection = await connect_to_daemon_and_validate(root_path)
+        print("after conecct to daemon valid")
+    print("ensuring connection")
     if connection:
         passphrase = None
         if await connection.is_keyring_locked():
