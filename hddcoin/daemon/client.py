@@ -27,13 +27,14 @@ class DaemonProxy:
     async def start(self):
         print("starting deamon proxy")
         self.websocket = await websockets.connect(self._uri, max_size=None, ssl=self.ssl_context)
-
+        print("websocket created")
         async def listener():
             while True:
+                print("while true")
                 try:
                     message = await self.websocket.recv()
                 except websockets.exceptions.ConnectionClosedOK as e:
-                    print(e)
+                    print("in listerner ", e)
                     return None
                 decoded = json.loads(message)
                 id = decoded["request_id"]
