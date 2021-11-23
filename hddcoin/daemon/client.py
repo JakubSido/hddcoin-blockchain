@@ -28,7 +28,7 @@ class DaemonProxy:
         print("starting deamon proxy")
         try:
             self.websocket = await websockets.connect(self._uri, max_size=None, ssl=self.ssl_context)
-        except Exception e:
+        except Exception as e:
             print("websocket e", e)
         print("websocket created")
         async def listener():
