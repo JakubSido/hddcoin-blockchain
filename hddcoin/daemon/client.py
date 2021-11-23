@@ -148,7 +148,8 @@ async def connect_to_daemon_and_validate(root_path: Path, quiet: bool = False) -
 
         if "value" in r["data"] and r["data"]["value"] == "pong":
             return connection
-    except Exception:
+    except Exception as e:
+        print(e)
         if not quiet:
             print("Daemon not started yet")
         return None
