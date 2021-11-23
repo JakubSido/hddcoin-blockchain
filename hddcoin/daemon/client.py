@@ -141,10 +141,13 @@ async def connect_to_daemon_and_validate(root_path: Path, quiet: bool = False) -
     there and running.
     """
     from hddcoin.server.server import ssl_context_for_client
-
+    print("root_path: ", root_path)
     try:
         net_config = load_config(root_path, "config.yaml")
+        print("dict inside : ", net_config["daemon_ssl"]["private_crt"])
         crt_path = root_path / net_config["daemon_ssl"]["private_crt"]
+
+        print("crt_path: ",crt_path)
         key_path = root_path / net_config["daemon_ssl"]["private_key"];
         ca_crt_path = root_path / net_config["private_ssl_ca"]["crt"]
         ca_key_path = root_path / net_config["private_ssl_ca"]["key"]
