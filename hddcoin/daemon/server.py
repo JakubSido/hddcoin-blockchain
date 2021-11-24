@@ -151,16 +151,22 @@ class WebSocketServer:
 
     async def start(self):
         self.log.info("Starting Daemon Server")
+        print("Starting Daemon Server")
 
         def master_close_cb():
             asyncio.create_task(self.stop())
 
         try:
+            print("in try ")
             asyncio.get_running_loop().add_signal_handler(signal.SIGINT, master_close_cb)
+            print("a1")
             asyncio.get_running_loop().add_signal_handler(signal.SIGTERM, master_close_cb)
-        except NotImplementedError:
+            print("a2")
+        except NotImplementedError as e:
+            print("exception!!: ", e)
             self.log.info("Not implemented")
 
+        print("calling serve")
         self.websocket_server = await serve(
             self.safe_handle,
             self.self_hostname,
@@ -170,6 +176,7 @@ class WebSocketServer:
             ping_timeout=300,
             ssl=self.ssl_context,
         )
+        print("websocket : ", self.websocket_server)
         self.log.info("Waiting Daemon WebSocketServer closure")
 
     def cancel_task_safe(self, task: Optional[asyncio.Task]):
