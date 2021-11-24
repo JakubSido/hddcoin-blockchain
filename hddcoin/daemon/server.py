@@ -1270,7 +1270,7 @@ async def async_run_daemon(root_path: Path, wait_for_unlock: bool = False) -> in
     # When wait_for_unlock is true, we want to skip the check_keys() call in hddcoin_init
     # since it might be necessary to wait for the GUI to unlock the keyring first.
     print("starting daemon async")
-    self.log.info("starting daemon async")
+    log.info("starting daemon async")
     hddcoin_init(root_path, should_check_keys=(not wait_for_unlock))
     config = load_config(root_path, "config.yaml")
     setproctitle("hddcoin_daemon")
