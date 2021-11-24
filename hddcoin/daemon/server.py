@@ -178,7 +178,7 @@ class WebSocketServer:
             ping_timeout=300,
             ssl=self.ssl_context,
         )
-       self.log.info(f"websocket : {self.websocket_server}")
+        self.log.info(f"websocket : {self.websocket_server}")
         self.log.info("Waiting Daemon WebSocketServer closure")
 
     def cancel_task_safe(self, task: Optional[asyncio.Task]):
