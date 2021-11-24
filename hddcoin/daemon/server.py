@@ -157,16 +157,16 @@ class WebSocketServer:
             asyncio.create_task(self.stop())
 
         try:
-            print("in try ")
+            self.log.info("in try")
             asyncio.get_running_loop().add_signal_handler(signal.SIGINT, master_close_cb)
             print("a1")
             asyncio.get_running_loop().add_signal_handler(signal.SIGTERM, master_close_cb)
-            print("a2")
+            self.log.info("after runnn")
         except NotImplementedError as e:
-            print("exception!!: ", e)
+            self.log.info(f"exception::"{e})
             self.log.info("Not implemented")
 
-        print("calling serve")
+        self.log.info("calling serve")
         self.websocket_server = await serve(
             self.safe_handle,
             self.self_hostname,
@@ -176,7 +176,7 @@ class WebSocketServer:
             ping_timeout=300,
             ssl=self.ssl_context,
         )
-        print("websocket : ", self.websocket_server)
+       self.log.info(f"websocket : {self.websocket_server}")
         self.log.info("Waiting Daemon WebSocketServer closure")
 
     def cancel_task_safe(self, task: Optional[asyncio.Task]):
@@ -1268,7 +1268,7 @@ async def async_run_daemon(root_path: Path, wait_for_unlock: bool = False) -> in
     # When wait_for_unlock is true, we want to skip the check_keys() call in hddcoin_init
     # since it might be necessary to wait for the GUI to unlock the keyring first.
     print("starting daemon async")
-
+    self.log.info("starting daemon async")
     hddcoin_init(root_path, should_check_keys=(not wait_for_unlock))
     config = load_config(root_path, "config.yaml")
     setproctitle("hddcoin_daemon")
