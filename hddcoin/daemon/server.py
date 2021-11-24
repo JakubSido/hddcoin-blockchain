@@ -163,10 +163,12 @@ class WebSocketServer:
             asyncio.get_running_loop().add_signal_handler(signal.SIGTERM, master_close_cb)
             self.log.info("after runnn")
         except NotImplementedError as e:
-            self.log.info(f"exception::"{e})
+            self.log.info(f"exception::{e}")
             self.log.info("Not implemented")
 
         self.log.info("calling serve")
+
+        #imported from websocket
         self.websocket_server = await serve(
             self.safe_handle,
             self.self_hostname,
